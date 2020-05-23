@@ -1,0 +1,49 @@
+# 2020_5-22_CodePractice
+
+import java.util.Arrays;
+
+public class MergeSort{
+
+    public static void main(String[] args){
+        int[] a={10,6,7,1,3,9,7,4};
+        mergeSort(a,0,a.length);
+        System.out.println(Arrays.toString(a));
+    }
+    // [low, high)
+    private static void mergeSort(int[] a,int low,int high){
+        if(low>=high-1){
+            return;
+        }
+        int mid=(low+high)/2;
+        // [low, mid)
+        // [mid, high)
+        mergeSort(a,low,mid);
+        mergeSort(a,mid,high);
+        merge(a,low,mid,high);
+    }
+
+    private static void merge(int[] a,int low,int mid,int high){
+        int len=high-low;
+        int[] extra=new int[len];
+        int i=low;
+        int j=mid;
+        int k=0;
+
+        while(i<mid && j<high){
+            if(a[i]<=a[j]){
+                extra[k++]=a[i++];
+            }else{
+                extra[k++]=a[j++];
+            }
+        }
+        while(i<mid){
+            extra[k++]=a[i++];
+        }
+        while(j<high){
+            extra[k++]=a[j++];
+        }
+        for(int x=0;x<len;x++){
+            a[low+x]=extra[x];
+        }
+    }
+}
